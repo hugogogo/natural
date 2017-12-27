@@ -28,11 +28,17 @@ A list object containing: \describe{
 \item{\code{lambda}: }{The path of tuning parameter used.}
 \item{\code{a0}: }{Estimate of intercept. A vector of length \code{nlam}.}
 \item{\code{beta}: }{Matrix of estimates of the regression coefficients, in the orignal scale. The matrix is of size \code{p} by \code{nlam}. The \code{j}-th column represents the estimate of coefficient corresponding to the \code{j}-th tuning parameter in \code{lambda}.}
-\item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}}
+\item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
+\item{\code{sig_naive}: }{Naive estimate of the error standard deviation based on the squared-lasso regression. A vector of length \code{nlam}.}
+\item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of the error standard deviation, based on the squared-lasso regression. A vector of length \code{nlam}. }
+\item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 }
 \description{
 Calculate a solution path of the organic lasso estimate (of error standard deviation) with a list of tuning parameter values. In paticular, this function solves the squared-lasso problems and returns the objective function values as estimates of the error variance:
 \eqn{\tilde{\sigma}^2_{\lambda} = \min_{\beta} ||y - X \beta||_2^2 / n + 2 \lambda ||\beta||_1^2.}
+}
+\details{
+This package also includes the outputs of the naive and the degree-of-freedom adjusted estimates, in analogy to \code{\link{nlasso_path}}.
 }
 \examples{
 set.seed(123)

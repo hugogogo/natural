@@ -30,7 +30,8 @@ A list object containing: \describe{
 \item{\code{a0}: }{Estimate of intercept. A vector of length \code{nlam}.}
 \item{\code{sig_obj_path}: }{Natural lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
 \item{\code{sig_naive_path}: }{Naive estimates of the error standard deviation based on lasso regression, i.e., \eqn{||y - X \hat{\beta}||_2 / \sqrt n}. A vector of length \code{nlam}.}
-\item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}. See Reid, et, al (2016).}}
+\item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}. See Reid, et, al (2016).}
+\item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 }
 \description{
 Calculate a solution path of the natural lasso estimate (of error standard deviation) with a list of tuning parameter values. In paticular, this function solves the lasso problems and returns the lasso objective function values as estimates of the error variance:

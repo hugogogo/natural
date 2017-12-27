@@ -18,7 +18,8 @@
 #' \item{\code{a0}: }{Estimate of intercept. A vector of length \code{nlam}.}
 #' \item{\code{sig_obj_path}: }{Natural lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
 #' \item{\code{sig_naive_path}: }{Naive estimates of the error standard deviation based on lasso regression, i.e., \eqn{||y - X \hat{\beta}||_2 / \sqrt n}. A vector of length \code{nlam}.}
-#' \item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}. See Reid, et, al (2016).}}
+#' \item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}. See Reid, et, al (2016).}
+#' \item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 #' @examples
 #' set.seed(123)
 #' sim <- make_sparse_model(n = 50, p = 200, alpha = 0.6, rho = 0.6, snr = 2, nsim = 1)
@@ -78,12 +79,15 @@ nlasso_path<- function(x, y, lambda = NULL,
   sig_naive_path <- sqrt(sse / n)
   sig_df_path <- sqrt(sse / (n - df))
 
-  return(list(n = n, p = p, lambda = lambda,
+  out <- list(n = n, p = p, lambda = lambda,
          beta = beta_est,
          a0 = a0,
          sig_obj_path = sig_obj_path,
          sig_naive_path = sig_naive_path,
-         sig_df_path = sig_df_path))
+         sig_df_path = sig_df_path,
+         type = "natural")
+  class(out) <- "natural.path"
+  return(out)
 }
 
 #' Cross-validation for natural lasso
@@ -116,7 +120,8 @@ nlasso_path<- function(x, y, lambda = NULL,
 #' \item{\code{sig_naive}: }{Naive estimates of the error standard deviation based on lasso regression, i.e., \eqn{||y - X \hat{\beta}||_2 / \sqrt n}, selected by cross-validation.}
 #' \item{\code{sig_naive_path}: }{Naive estimate of standard deviation of the error based on lasso regression. A vector of length \code{nlam}.}
 #' \item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of standard deviation of the error, selected by cross-validation. See Reid, et, al (2016).}
-#' \item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}.}}
+#' \item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}.}
+#' \item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 #' @examples
 #' set.seed(123)
 #' sim <- make_sparse_model(n = 50, p = 200, alpha = 0.6, rho = 0.6, snr = 2, nsim = 1)
@@ -210,7 +215,8 @@ nlasso_cv <- function(x, y, lambda = NULL,
               sig_naive = final$sig_naive_path[ibest],
               sig_naive_path = final$sig_naive_path,
               sig_df = final$sig_df_path[ibest],
-              sig_df_path = final$sig_df_path)
+              sig_df_path = final$sig_df_path,
+              type = "natural")
 
   class(out) <- "natural.cv"
   return(out)

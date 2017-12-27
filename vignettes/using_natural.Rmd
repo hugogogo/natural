@@ -47,14 +47,11 @@ $$
 $$
 is the lasso solution with tuning parameter $\lambda$, and $\hat{s}_\lambda$ is the degree of freedom of the lasso fit.
 
-The tuning parameter path can be specified via argument `lambda`. If not provided, the algorithm will automatically generate a path of lambda of length `nlam`.
+The tuning parameter path can be specified via argument `lambda`. If not provided, the algorithm will automatically generate a path of lambda of length `nlam`. The output is a S3 object, which can be printed or plotted.
 ```{r, fig.height = 5, fig.width = 5, fig.align='center'}
 nl <- nlasso_path(x = sim$x, y = sim$y[, 1])
-plot(nl$lambda, nl$sig_naive_path, type = "l", col = "black", lwd = 2, main = NULL, ylab = "estimated error s.d.", xlab = "lambda")
-lines(nl$lambda, nl$sig_df_path, col = "red", lwd = 2)
-lines(nl$lambda, nl$sig_obj_path, col = "blue", lwd = 2)
-abline(h = sim$sigma, lwd = 1, col = "gray")
-legend("bottomright", legend = c("naive", "df", "natural", "truth"), lwd = c(2, 2, 2, 1), col = c("black", "red", "blue", "gray"))
+#plot(nl)
+#print(nl)
 ```
 
 ### Selecting the tuning parameter of natural lasso using cross-validation
@@ -65,30 +62,16 @@ plot(nl_cv)
 ```
 
 The return of `nlasso_cv` is a list of objects. See `?nlasso_cv` for more details. In particular, `sig_obj`, `sig_naive`, and `sig_df` are the cross-validated estimates. 
-<!--
-We consider a small simulation here to compare the perform the three methods:
-```{r, fig.height = 5, fig.width = 5, fig.align='center'}
-err_mat <- matrix(NA, nrow = nsim, ncol = 3)
-colnames(err_mat) <- c("natural", "naive", "df")
-for(i in seq(nsim)){
-  curr <- nlasso_cv(x = sim$x, y = sim$y[, i])
-  err_mat[i, 1] <- (curr$sig_obj / sim$sigma - 1)^2
-  err_mat[i, 2] <- (curr$sig_naive / sim$sigma - 1)^2
-  err_mat[i, 3] <- (curr$sig_df / sim$sigma - 1)^2
-}
-boxplot(err_mat)
-```
--->
 
 ## Estimating $\sigma$ with organic lasso
-Organic lasso is a companion method to the natural lasso. The main novelty is that the choice of tuning parameter is *pivotal*, in that it does not depend on any unknown parameter. The organic lasso estimate of error variance is defined as
+Organic lasso is a companion method to the natural lasso. The main novelty is that the choice of tuning parameter is *pivotal*, in that it does not depend on any unknown parameter. The organic lasso estimate of the error variance is defined as
 $$
 \tilde{\sigma}_\lambda^2 = \min_{\beta} \frac{1}{n} ||y - X\beta||_2^2 + 2 \lambda ||\beta||_1^2.
 $$
 
-The main functions implementing organic lasso are `olasso_path`, `olasso_cv`, and `olasso`. In particular, `olasso_path` computes the organic lasso estimates of the error variance along a path of tuning parameters, and `olasso_cv` selects the optimal tuning parameter using a K-fold cross-validation procedure. The usages are the same as `nlasso_path` and `nlasso_cv`. Please see `?olasso_cv` and `?olasso_path` for more details.
+The main functions implementing organic lasso are `olasso_path`, `olasso_cv`, and `olasso`. In particular, `olasso_path` computes the organic lasso estimates of the error variance along a path of tuning parameters, and `olasso_cv` selects the optimal tuning parameter using a $K$-fold cross-validation procedure. The usages are the same as `nlasso_path` and `nlasso_cv`. Please see `?olasso_cv` and `?olasso_path` for more details.
 
-The function `olasso` computes the organic lasso estimate of $\sigma$ corresponding to two pre-specified values of tuning parameters. In particular, the function outputs the organic lasso estimates with $\lambda_1 = \frac{\log p}{n}$, and $\lambda_2$, which is a Monte-Carlo estimate of the quantity $n^{-2}||X^T e||_\infty^2$, where $e$ is an n-dimensional vector of independent standard normals. We show in the following example that both of them give close estimates of the true error variance. For completeness of comparison, we also include the outputs of `olasso_cv` and `nlasso_cv`.
+The function `olasso` computes the organic lasso estimate of $\sigma$ corresponding to two pre-specified values of tuning parameters. In particular, the function outputs the organic lasso estimates with $\lambda_1 = \frac{\log p}{n}$, and $\lambda_2$, which is a Monte-Carlo estimate of the quantity $n^{-2}||X^T e||_\infty^2$, where $e$ is an n-dimensional vector of independent standard normals. We show in the following example that both of them give close estimates of the true error variance. For completeness of the comparison, we also include the outputs of `olasso_cv` and `nlasso_cv`.
 ```{r, fig.height = 7, fig.width = 7, fig.align='center'}
 err_o_mat <- matrix(NA, nrow = nsim, ncol = 6)
 colnames(err_o_mat) <- c("olasso(1)", "olasso(2)", "olasso(cv)", "nlasso", "naive", "df")

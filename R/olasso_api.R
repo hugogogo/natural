@@ -3,6 +3,8 @@
 #' Calculate a solution path of the organic lasso estimate (of error standard deviation) with a list of tuning parameter values. In paticular, this function solves the squared-lasso problems and returns the objective function values as estimates of the error variance:
 #' \eqn{\tilde{\sigma}^2_{\lambda} = \min_{\beta} ||y - X \beta||_2^2 / n + 2 \lambda ||\beta||_1^2.}
 #'
+#' This package also includes the outputs of the naive and the degree-of-freedom adjusted estimates, in analogy to \code{\link{nlasso_path}}.
+#'
 #' @param x An \code{n} by \code{p} design matrix. Each row is an observation of \code{p} features.
 #' @param y A response vector of size \code{n}.
 #' @param lambda A user specified list of tuning parameter. Default to be NULL, and the program will compute its own \code{lambda} path based on \code{nlam} and \code{flmin}.
@@ -15,9 +17,10 @@
 #' \item{\code{lambda}: }{The path of tuning parameter used.}
 #' \item{\code{a0}: }{Estimate of intercept. A vector of length \code{nlam}.}
 #' \item{\code{beta}: }{Matrix of estimates of the regression coefficients, in the orignal scale. The matrix is of size \code{p} by \code{nlam}. The \code{j}-th column represents the estimate of coefficient corresponding to the \code{j}-th tuning parameter in \code{lambda}.}
-#' \item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}}
-# #' \item{\code{sig_naive}: }{Naive estimate of the error standard deviation based on lasso regression. A vector of length \code{nlam}.}
-# #' \item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of the error standard deviation. A vector of length \code{nlam}. See Reid, et, al (2016).}}
+#' \item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
+#' \item{\code{sig_naive}: }{Naive estimate of the error standard deviation based on the squared-lasso regression. A vector of length \code{nlam}.}
+#' \item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of the error standard deviation, based on the squared-lasso regression. A vector of length \code{nlam}. }
+#' \item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 #' @examples
 #' set.seed(123)
 #' sim <- make_sparse_model(n = 50, p = 200, alpha = 0.6, rho = 0.6, snr = 2, nsim = 1)
@@ -108,21 +111,23 @@ olasso_path <- function(x, y, lambda = NULL,
   residual <- matrix(y, nrow = n, ncol = nlam) - fitted
   sse <- colSums(residual^2)
 
-  # # compute the degrees of freedom (nnz)
-  # df <- colSums(abs(beta) >= 1e-8)
-  # df[df >= n] <- n - 1
+  # compute the degrees of freedom (nnz)
+  df <- colSums(abs(beta) >= 1e-8)
+  df[df >= n] <- n - 1
 
   sig_obj_path <- sqrt(sse / n + 2 * lambda * colSums(abs(beta))^2)
-  # sig_naive <- sqrt(sse / n)
-  # sig_df <- sqrt(sse / (n - df))
+  sig_naive_path <- sqrt(sse / n)
+  sig_df_path <- sqrt(sse / (n - df))
 
-  list(n = n, p = p, lambda = lambda,
-       beta = beta_est,
-       a0 = a0,
-       sig_obj_path = sig_obj_path
-       # sig_naive = sig_naive,
-       # sig_df = sig_df
-       )
+  out <- list(n = n, p = p, lambda = lambda,
+              beta = beta_est,
+              a0 = a0,
+              sig_obj_path = sig_obj_path,
+              sig_naive_path = sig_naive_path,
+              sig_df_path = sig_df_path,
+              type = "organic")
+  class(out) <- "natural.path"
+  return(out)
 }
 
 #' Solve organic lasso problem with a single value of lambda
@@ -241,7 +246,8 @@ olasso <- function(x, y, intercept = TRUE, thresh = 1e-8){
 #' \item{\code{foldid}: }{Fold assignment. A vector of length \code{n}.}
 #' \item{\code{nfold}: }{The number of folds used in cross-validation.}
 #' \item{\code{sig_obj}: }{Organic lasso estimate of the error standard deviation, selected by cross-validation.}
-#' \item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}}
+#' \item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
+#' \item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 # #' \item{\code{sig_naive}: }{Naive estimate of the error standard deviation based on the organic lasso regression, selected by cross-validation.}
 # #' \item{\code{sig_naive_path}: }{Naive estimate of the error standard deviation based on the organic lasso regression. A vector of length \code{nlam}.}
 # #' \item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of standard deviation of the error, selected by cross-validation. See Reid, et, al (2016).}
@@ -334,11 +340,12 @@ olasso_cv <- function(x, y, lambda = NULL,
               foldid = foldid,
               nfold = nfold,
               sig_obj = final$sig_obj[ibest],
-              sig_obj_path = final$sig_obj
+              sig_obj_path = final$sig_obj,
               #sig_naive = final$sig_naive[ibest],
               #sig_naive_path = final$sig_naive,
               #sig_df = final$sig_df[ibest],
               #sig_df_path = final$sig_df
+              type = "organic"
               )
 
   class(out) <- "natural.cv"

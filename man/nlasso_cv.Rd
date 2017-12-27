@@ -43,7 +43,8 @@ A list object containing: \describe{
 \item{\code{sig_naive}: }{Naive estimates of the error standard deviation based on lasso regression, i.e., \eqn{||y - X \hat{\beta}||_2 / \sqrt n}, selected by cross-validation.}
 \item{\code{sig_naive_path}: }{Naive estimate of standard deviation of the error based on lasso regression. A vector of length \code{nlam}.}
 \item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of standard deviation of the error, selected by cross-validation. See Reid, et, al (2016).}
-\item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}.}}
+\item{\code{sig_df_path}: }{Degree-of-freedom adjusted estimate of standard deviation of the error. A vector of length \code{nlam}.}
+\item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 }
 \description{
 Provide natural lasso estimate (of the error standard deviation) using cross-validation to select the tuning parameter value

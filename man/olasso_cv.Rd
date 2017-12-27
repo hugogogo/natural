@@ -39,7 +39,8 @@ A list object containing: \describe{
 \item{\code{foldid}: }{Fold assignment. A vector of length \code{n}.}
 \item{\code{nfold}: }{The number of folds used in cross-validation.}
 \item{\code{sig_obj}: }{Organic lasso estimate of the error standard deviation, selected by cross-validation.}
-\item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}}
+\item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
+\item{\code{type}: }{whether the output is of a natural or an organic lasso.}}
 }
 \description{
 Provide organic lasso estimate (of the error standard deviation) using cross-validation to select the tuning parameter value
