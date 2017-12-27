@@ -4,7 +4,9 @@
 * win-builder (x86_64-w64-mingw32 (64-bit); R Under development (unstable) (2017-09-12 r73242))
 
 ## R CMD check results (OS X 10.12.6)
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 1 note
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Guo Yu <gy63@cornell.edu>'
 
 ## R CMD check results (CentOS 6.2)
 0 errors | 1 warnings | 1 note
