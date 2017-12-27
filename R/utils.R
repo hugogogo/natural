@@ -12,7 +12,6 @@ standardize <- function(x, center = TRUE){
   return(list(x = x, col_mean = col_mean, col_sd = col_sd))
 }
 
-
 #' Generate sparse linear model and random samples
 #'
 #' Generate design matrix and response following linear models
@@ -32,8 +31,6 @@ standardize <- function(x, center = TRUE){
 #' \item{\code{beta}: }{The true regression coefficient vector}
 #' \item{\code{sigma}: }{The true error standard deviation}}
 #'
-#' @import MASS
-#' @import distr
 #' @export
 make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   # alpha controls the sparsity, n^\alpha = nnz
@@ -44,7 +41,7 @@ make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   # columns of x have correlation rho
   Sigma <- matrix(rho, nrow = p, ncol = p)
   diag(Sigma) <- 1
-  x <- mvrnorm(n = n, mu = rep(0, p), Sigma = Sigma)
+  x <- matrix(rnorm(n * p), nrow = n, ncol = p) %*% chol(Sigma)
   # standardize x so that it has colmeans 0 and ||x_j||^2 = n
   x <- scale(x, center = TRUE, scale = TRUE) / sqrt(n - 1) * sqrt(n)
   # number of nonzeros
@@ -52,10 +49,10 @@ make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   # random indices of nonzero elements in beta
   ind <- sample(p, nnz)
   # nonzero element values are set equals to a random sample from
-  # Laplace(1)
-  D <- DExp(rate = 1)
+  # Laplace(1) (center = 0, scale = 1)
   beta <- rep(0, p)
-  beta[ind] <- r(D)(1)
+  rr_unif <- runif(n = 1, min = -0.5, max = 0.5)
+  beta[ind] <- -sign(rr_unif) * log(1 - 2 * abs(rr_unif))
   # true sigma
   sigma <- sqrt(as.numeric(crossprod(beta, Sigma %*% beta) / snr))
   # true signal
