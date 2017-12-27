@@ -1,0 +1,6 @@
+bibentry(bibtype = "article",
+title = "Estimating the error variance in a high-dimensional linear model",
+author = c(person("Guo", "Yu"), person("Jacob", "Bien")),
+year = {2017},
+journal = "Submitted",
+url = "https://arxiv.org/abs/1712.02412")

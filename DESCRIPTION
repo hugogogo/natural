@@ -1,0 +1,15 @@
+Package: natural
+Type: Package
+Title: Estimating the error variance in a high-dimensional linear model
+Version: 0.1.0
+Author: Guo Yu
+Authors@R: person("Guo", "Yu", email = "gy63@cornell.edu", role = c("aut", "cre"))
+Description: Error variance estimation in a high-dimensional linear model using natural lasso and organic lasso.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1
+Imports: Matrix, glmnet, MASS, distr
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
