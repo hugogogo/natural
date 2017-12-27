@@ -194,7 +194,7 @@ nlasso_cv <- function(x, y, lambda = NULL,
   # the index of best lambda
   ibest <- which.min(cvm)
 
-  cvse <- apply(mat_mse, 1, sd) / sqrt(ncol(mat_mse))
+  cvse <- apply(mat_mse, 1, stats::sd) / sqrt(ncol(mat_mse))
 
   # now fit the full data
   final <- nlasso_path(x = x, y = y,

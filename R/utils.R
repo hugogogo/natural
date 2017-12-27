@@ -41,7 +41,7 @@ make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   # columns of x have correlation rho
   Sigma <- matrix(rho, nrow = p, ncol = p)
   diag(Sigma) <- 1
-  x <- matrix(rnorm(n * p), nrow = n, ncol = p) %*% chol(Sigma)
+  x <- matrix(stats::rnorm(n * p), nrow = n, ncol = p) %*% chol(Sigma)
   # standardize x so that it has colmeans 0 and ||x_j||^2 = n
   x <- scale(x, center = TRUE, scale = TRUE) / sqrt(n - 1) * sqrt(n)
   # number of nonzeros
@@ -51,7 +51,7 @@ make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   # nonzero element values are set equals to a random sample from
   # Laplace(1) (center = 0, scale = 1)
   beta <- rep(0, p)
-  rr_unif <- runif(n = 1, min = -0.5, max = 0.5)
+  rr_unif <- stats::runif(n = 1, min = -0.5, max = 0.5)
   beta[ind] <- -sign(rr_unif) * log(1 - 2 * abs(rr_unif))
   # true sigma
   sigma <- sqrt(as.numeric(crossprod(beta, Sigma %*% beta) / snr))
@@ -60,7 +60,7 @@ make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   # ||beta||_1 / sigma^2
   signal_th <- sum(abs(beta)) / sigma
 
-  y <- mu + sigma * matrix(rnorm(nsim * n), n, nsim)
+  y <- mu + sigma * matrix(stats::rnorm(nsim * n), n, nsim)
   return(list(x = x, y = y, beta = beta, sigma = sigma))
 }
 
@@ -76,7 +76,7 @@ getLam_slasso <- function(n, p){
   while (abs(L - Lold) > 1e-3) {
     k = (L^4 + 2 * L^2)
     Lold = L
-    L = -qnorm(min(k / p, 0.99))
+    L = -stats::qnorm(min(k / p, 0.99))
     L = (L + Lold)/2
   }
   if (p == 1) L = 0.5
@@ -94,7 +94,7 @@ getLam_olasso <- function(x){
   # and Monte-Carlo estimate (with B replication) of
   # (||X^T e||_\infty / n)^2, where e ~ N(0, I_n)
   B <- 100
-  lam_2 <- abs(crossprod(x, matrix(rnorm(B * n), nrow = n, ncol = B)))
+  lam_2 <- abs(crossprod(x, matrix(stats::rnorm(B * n), nrow = n, ncol = B)))
   lam_2 <- mean(apply(lam_2, 2, max) / n)^2
   return(c(lam_1, lam_2))
 }

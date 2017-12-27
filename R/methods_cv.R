@@ -8,8 +8,8 @@
 #' @method plot natural.cv
 #' @export
 plot.natural.cv <- function(x, ...){
-  par(mar = c(5, 5, 5, 1))
-  plot(x$lambda, x$cvm,
+  graphics::par(mar = c(5, 5, 5, 1))
+  graphics::plot(x$lambda, x$cvm,
        main = paste("Cross-validation plot of ", x$type, " lasso", sep = ""),
        xlab = "tuning parameter",
        ylab = "Cross-validation error",
@@ -18,7 +18,7 @@ plot.natural.cv <- function(x, ...){
        pch = 20)
 
   # 1-se rule
-  lines(x$lambda, x$cvm + x$cvse)
-  lines(x$lambda, x$cvm - x$cvse)
-  abline(v = x$lambda[x$ibest], lty = 2)
+  graphics::lines(x$lambda, x$cvm + x$cvse)
+  graphics::lines(x$lambda, x$cvm - x$cvse)
+  graphics::abline(v = x$lambda[x$ibest], lty = 2)
 }

@@ -28,17 +28,17 @@ print.natural.path <- function(x, ...){
 #' @method plot natural.path
 #' @export
 plot.natural.path <- function(x, ...){
-  par(mar = c(5, 5, 5, 1))
+  graphics::par(mar = c(5, 5, 5, 1))
   yrange <- range(x$sig_obj_path, x$sig_naive_path, x$sig_df_path)
-  plot(x$lambda, x$sig_naive_path, type = "l", col = "black",
+  graphics::plot(x$lambda, x$sig_naive_path, type = "l", col = "black",
        lwd = 2,
        main = paste("Path plot of ", x$type, " lasso", sep = ""),
        ylim = yrange,
        ylab = "estimated error s.d.", xlab = "lambda")
-  lines(x$lambda, x$sig_df_path, col = "red", lwd = 2)
-  lines(x$lambda, x$sig_obj_path, col = "blue", lwd = 2)
-  legend("bottomright",
-         legend = c("naive", "df", "natural"),
-         lwd = c(2, 2, 2),
-         col = c("black", "red", "blue"))
+  graphics::lines(x$lambda, x$sig_df_path, col = "red", lwd = 2)
+  graphics::lines(x$lambda, x$sig_obj_path, col = "blue", lwd = 2)
+  graphics::legend("bottomright",
+                   legend = c("naive", "df", "natural"),
+                   lwd = c(2, 2, 2),
+                   col = c("black", "red", "blue"))
 }
