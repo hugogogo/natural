@@ -70,7 +70,7 @@ void olasso_c(double *x, double *y, int *nobs, int *ndim,
   sp_beta->p = beta_p;
   sp_beta->x = beta_x;
 
-  // initialize residual 
+  // initialize residual
   for (i = 0; i < n; i++){
     r[i] = y[i];
   }
@@ -92,7 +92,7 @@ void olasso_c(double *x, double *y, int *nobs, int *ndim,
 
   // update tolerance after data standardization
   tol = tol / (sqrt(n / nulldev));
-  // printf("Tolerance: %e", tol);
+  // Rprintf("Tolerance: %e", tol);
 
   act_length = 0;
   last_changed_cycle = 0;
@@ -132,7 +132,7 @@ void cd_update(const double *x, const double *sd, const int nobs, const int ndim
 //  This function takes a nobs-by-ndim matrix x, a nobs-vector r, and
 //  computes the lasso with tuning parameter lambda from a warm start sp_beta
 //  and with active set initialized to act.
-//  
+//
 //  The function updates sp_beta (passing the result by reference).
 //
 //  Args:
@@ -237,7 +237,7 @@ void cd_update(const double *x, const double *sd, const int nobs, const int ndim
     if ((*cycle_count > 0) && (*last_changed_cycle < *cycle_count)) {
       if (*all_var_update_mode) {
         *all_var_update_mode = 0;
-        // printf("Total number of cycles: %d \n", *cycle_count);
+        // Rprintf("Total number of cycles: %d \n", *cycle_count);
         break;
       }
       else {
@@ -277,7 +277,7 @@ int IsInArray(const int *arr, const int len, const int j) {
 
 int AddToArray(int *arr, int *len, const int maxlen, const int j) {
   if (*len >= maxlen) {
-    printf("could not add element.  Array full.\n");
+    Rprintf("could not add element.  Array full.\n");
     return 0;
   }
   else {
@@ -289,14 +289,14 @@ int AddToArray(int *arr, int *len, const int maxlen, const int j) {
 
 int cs_GetElement(cs *A, int row, int col, double *element) {
   /* Returns by reference the (first occurence of) the element A[row, col].
-     If A is in triplet form, returns the 
+     If A is in triplet form, returns the
      index ll such that A->i[ll] == row and A->p[ll] == col.  If A is in compressed column form
      returns ll such that A->i[ll] == row and A->p[col] <= ll < A->p[col + 1].
 
      Returns -1 if element is not in A (in which case *element = 0). */
   int ll;
   if (row >= A->m || col >= A->n) {
-    printf("Error: row or col exceeds A->m and A->n!\n");
+    Rprintf("Error: row or col exceeds A->m and A->n!\n");
     *element = 0;
     return -1;
   }

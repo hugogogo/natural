@@ -1,3 +1,4 @@
+# include <R.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <math.h>
@@ -64,13 +65,13 @@ static int cs_wclear (int mark, int lemax, int *w, int n)
 }
 
 /* keep off-diagonal entries; drop diagonal entries */
-static int cs_diag (int i, int j, double aij, void *other) 
-{ 
-  return (i != j); 
+static int cs_diag (int i, int j, double aij, void *other)
+{
+  return (i != j);
 }
 
 /* p = amd(A+A') if symmetric is true, or amd(A'A) otherwise */
-int *cs_amd ( const cs *A, int order )  
+int *cs_amd ( const cs *A, int order )
 /*
   Purpose:
 
@@ -85,9 +86,9 @@ int *cs_amd ( const cs *A, int order )
   Parameters:
 
     Input, int ORDER:
-    -1:natural, 
-    0:Cholesky,  
-    1:LU, 
+    -1:natural,
+    0:Cholesky,
+    1:LU,
     2:QR
 */
 {
@@ -727,7 +728,7 @@ static void cs_matched (int m, const int *wi, const int *jmatch, int *P, int *Q,
 
 
 static void cs_unmatched (int m, const int *wi, int *P, int *rr, int set)
-/* 
+/*
   Purpose:
 
     CS_UNMATCHED collects unmatched rows into the permutation vector P.
@@ -1347,7 +1348,7 @@ cs *cs_multiply (const cs *A, const cs *B)
 	if (nz + m > C->nzmax && !cs_sprealloc (C, 2*(C->nzmax)+m))
 	{
 	    return (cs_done (C, w, x, 0)) ;		/* out of memory */
-	} 
+	}
 	Ci = C->i ; Cx = C->x ;		/* C may have been reallocated */
 	Cp [j] = nz ;			/* column j of C starts here */
 	for (p = Bp [j] ; p < Bp [j+1] ; p++)
@@ -1441,32 +1442,32 @@ int cs_print (const cs *A, int brief)
 {
     int p, j, m, n, nzmax, nz, *Ap, *Ai ;
     double *Ax ;
-    if (!A) { printf ("(null)\n") ; return (0) ; }
+    if (!A) { Rprintf ("(null)\n") ; return (0) ; }
     m = A->m ; n = A->n ; Ap = A->p ; Ai = A->i ; Ax = A->x ;
     nzmax = A->nzmax ; nz = A->nz ;
-    printf ("CSparse Version %d.%d.%d, %s.  %s\n", CS_VER, CS_SUBVER,
+    Rprintf ("CSparse Version %d.%d.%d, %s.  %s\n", CS_VER, CS_SUBVER,
 	CS_SUBSUB, CS_DATE, CS_COPYRIGHT) ;
     if (nz < 0)
     {
-	printf ("%d-by-%d, nzmax: %d nnz: %d, 1-norm: %g\n", m, n, nzmax,
+	Rprintf ("%d-by-%d, nzmax: %d nnz: %d, 1-norm: %g\n", m, n, nzmax,
 		Ap [n], cs_norm (A)) ;
 	for (j = 0 ; j < n ; j++)
 	{
-	    printf ("    col %d : locations %d to %d\n", j, Ap [j], Ap [j+1]-1);
+	    Rprintf ("    col %d : locations %d to %d\n", j, Ap [j], Ap [j+1]-1);
 	    for (p = Ap [j] ; p < Ap [j+1] ; p++)
 	    {
-		printf ("      %d : %g\n", Ai [p], Ax ? Ax [p] : 1) ;
-		if (brief && p > 20) { printf ("  ...\n") ; return (1) ; }
+		Rprintf ("      %d : %g\n", Ai [p], Ax ? Ax [p] : 1) ;
+		if (brief && p > 20) { Rprintf ("  ...\n") ; return (1) ; }
 	    }
 	}
     }
     else
     {
-	printf ("triplet: %d-by-%d, nzmax: %d nnz: %d\n", m, n, nzmax, nz) ;
+	Rprintf ("triplet: %d-by-%d, nzmax: %d nnz: %d\n", m, n, nzmax, nz) ;
 	for (p = 0 ; p < nz ; p++)
 	{
-	    printf ("    %d %d : %g\n", Ai [p], Ap [p], Ax ? Ax [p] : 1) ;
-	    if (brief && p > 20) { printf ("  ...\n") ; return (1) ; }
+	    Rprintf ("    %d %d : %g\n", Ai [p], Ap [p], Ax ? Ax [p] : 1) ;
+	    if (brief && p > 20) { Rprintf ("  ...\n") ; return (1) ; }
 	}
     }
     return (1) ;
