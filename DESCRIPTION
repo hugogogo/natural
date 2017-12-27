@@ -5,6 +5,8 @@ Version: 0.1.0
 Authors@R: person("Guo", "Yu", email = "gy63@cornell.edu", role = c("aut", "cre"))
 Maintainer: Guo Yu <gy63@cornell.edu>
 Description: Error variance estimation in a high-dimensional linear model using natural lasso and organic lasso.
+URL: https://arxiv.org/abs/1712.02412
+BugReports: https://github.com/hugogogo/natural/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
