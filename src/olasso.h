@@ -8,7 +8,7 @@ void ComputeColumnMeans(double *, int, int, double *);
 static inline double SoftThreshold(const double c, const double t) {
   /* Soft thresholds c by t. */
   return (c < -t) ? (c + t) : ((c > t) ?  (c - t) : 0.0);
-};
+}
 
 double ComputeObjective(const double *, const int, const int, const cs *, const double);
 void cd_update(const double *, const double *, const int, const int, const int, const double, const int,
