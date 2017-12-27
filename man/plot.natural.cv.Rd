@@ -4,7 +4,7 @@
 \alias{plot.natural.cv}
 \title{plot a natural.cv object}
 \usage{
-plot.natural.cv(x, ...)
+\method{plot}{natural.cv}(x, ...)
 }
 \arguments{
 \item{x}{an object of class \code{natural.cv}, as returned by
