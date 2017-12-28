@@ -29,7 +29,7 @@
 #' @import Matrix
 #' @export
 #'
-#' @useDynLib natural olasso_c
+#' @useDynLib natural, .registration = TRUE
 #' @seealso \code{\link{olasso}, \link{olasso_cv}}
 olasso_path <- function(x, y, lambda = NULL,
                    nlam = 100, flmin = 1e-2,
