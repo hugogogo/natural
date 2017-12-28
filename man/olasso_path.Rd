@@ -20,7 +20,7 @@ olasso_path(x, y, lambda = NULL, nlam = 100, flmin = 0.01,
 
 \item{thresh}{Threshold value for underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.}
 
-\item{intercept}{Indicator of whether intercept should be fitted. Dafault to be \code{FALSE}.}
+\item{intercept}{Indicator of whether intercept should be fitted. Default to be \code{FALSE}.}
 }
 \value{
 A list object containing: \describe{

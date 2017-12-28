@@ -11,7 +11,7 @@
 #' @param nlam The number of \code{lambda} values. Default value is \code{100}.
 #' @param flmin The ratio of the smallest and the largest values in \code{lambda}. The largest value in \code{lambda} is usually the smallest value for which all coefficients are set to zero. Default to be \code{1e-2}.
 #' @param thresh Threshold value for underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.
-#' @param intercept Indicator of whether intercept should be fitted. Dafault to be \code{FALSE}.
+#' @param intercept Indicator of whether intercept should be fitted. Default to be \code{FALSE}.
 #' @return A list object containing: \describe{
 #' \item{\code{n} and \code{p}: }{The dimension of the problem.}
 #' \item{\code{lambda}: }{The path of tuning parameter used.}
@@ -175,7 +175,7 @@ olasso_slow <- function(x, y, thresh = 1e-8){
 #'
 #' @param x An \code{n} by \code{p} design matrix. Each row is an observation of \code{p} features.
 #' @param y A response vector of size \code{n}.
-#' @param intercept Indicator of whether intercept should be fitted. Dafault to be \code{TRUE}.
+#' @param intercept Indicator of whether intercept should be fitted. Default to be \code{TRUE}.
 #' @param thresh Threshold value for underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.
 #' @return A list object containing: \describe{
 #' \item{\code{n} and \code{p}: }{The dimension of the problem.}
@@ -228,7 +228,7 @@ olasso <- function(x, y, intercept = TRUE, thresh = 1e-8){
 #' @param x An \code{n} by \code{p} design matrix. Each row is an observation of \code{p} features.
 #' @param y A response vector of size \code{n}.
 #' @param lambda A user specified list of tuning parameter. Default to be NULL, and the program will compute its own \code{lambda} path based on \code{nlam} and \code{flmin}.
-#' @param intercept Indicator of whether intercept should be fitted. Dafault to be \code{TRUE}.
+#' @param intercept Indicator of whether intercept should be fitted. Default to be \code{TRUE}.
 #' @param nlam The number of \code{lambda} values. Default value is \code{100}.
 #' @param flmin The ratio of the smallest and the largest values in \code{lambda}. The largest value in \code{lambda} is usually the smallest value for which all coefficients are set to zero. Default to be \code{1e-2}.
 #' @param nfold Number of folds in cross-validaton. Default value is 5. If each fold gets too view observation, a warning is thrown and the minimal \code{nfold = 3} is used.

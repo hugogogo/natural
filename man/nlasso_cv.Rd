@@ -14,7 +14,7 @@ nlasso_cv(x, y, lambda = NULL, intercept = TRUE, nlam = 100,
 
 \item{lambda}{A user specified list of tuning parameter. Default to be NULL, and the program will compute its own \code{lambda} path based on \code{nlam} and \code{flmin}.}
 
-\item{intercept}{Indicator of whether intercept should be fitted. Dafault to be \code{TRUE}.}
+\item{intercept}{Indicator of whether intercept should be fitted. Default to be \code{TRUE}.}
 
 \item{nlam}{The number of \code{lambda} values. Default value is \code{100}.}
 

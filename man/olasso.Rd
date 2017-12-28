@@ -11,7 +11,7 @@ olasso(x, y, intercept = TRUE, thresh = 1e-08)
 
 \item{y}{A response vector of size \code{n}.}
 
-\item{intercept}{Indicator of whether intercept should be fitted. Dafault to be \code{TRUE}.}
+\item{intercept}{Indicator of whether intercept should be fitted. Default to be \code{TRUE}.}
 
 \item{thresh}{Threshold value for underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.}
 }
