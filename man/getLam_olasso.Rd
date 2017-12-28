@@ -12,4 +12,3 @@ getLam_olasso(x)
 \description{
 Get the two (theoretical) values of lambdas used in the organic lasso
 }
-

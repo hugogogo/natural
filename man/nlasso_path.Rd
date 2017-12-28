@@ -46,4 +46,3 @@ nl_path <- nlasso_path(x = sim$x, y = sim$y[, 1])
 \seealso{
 \code{\link{nlasso_cv}}
 }
-

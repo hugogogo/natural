@@ -11,4 +11,3 @@ The package contains implementation of the two methods introduced in Yu, Bien (2
 \details{
 The main functions are \code{\link{nlasso_cv}}, \code{\link{olasso_cv}}, and \code{\link{olasso}}.
 }
-

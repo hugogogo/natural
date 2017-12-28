@@ -14,4 +14,3 @@ getLam_slasso(n, p)
 \description{
 Get the two (theoretical) values of lambdas used in scaled lasso
 }
-

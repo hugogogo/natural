@@ -18,4 +18,3 @@ olasso_slow(x, y, thresh = 1e-08)
 Solve organic lasso problem with a single value of lambda
 The lambda values are for slow rates, which could give less satisfying results
 }
-

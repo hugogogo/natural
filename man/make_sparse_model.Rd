@@ -31,4 +31,3 @@ Generate design matrix and response following linear models
 \eqn{y = X \beta + \epsilon}, where
 \eqn{\epsilon ~ N(0, \sigma^2)}, and \eqn{X ~ N(0, \Sigma)}.
 }
-

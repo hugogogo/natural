@@ -16,4 +16,3 @@ standardize(x, center = TRUE)
 Standardize the n -by- p design matrix X to have
 column means zero and ||X_j||_2^2 = n for all j
 }
-

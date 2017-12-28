@@ -49,4 +49,3 @@ ol_path <- olasso_path(x = sim$x, y = sim$y[, 1])
 \seealso{
 \code{\link{olasso}, \link{olasso_cv}}
 }
-
