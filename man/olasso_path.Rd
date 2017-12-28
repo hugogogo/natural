@@ -27,7 +27,7 @@ A list object containing: \describe{
 \item{\code{n} and \code{p}: }{The dimension of the problem.}
 \item{\code{lambda}: }{The path of tuning parameter used.}
 \item{\code{a0}: }{Estimate of intercept. A vector of length \code{nlam}.}
-\item{\code{beta}: }{Matrix of estimates of the regression coefficients, in the orignal scale. The matrix is of size \code{p} by \code{nlam}. The \code{j}-th column represents the estimate of coefficient corresponding to the \code{j}-th tuning parameter in \code{lambda}.}
+\item{\code{beta}: }{Matrix of estimates of the regression coefficients, in the original scale. The matrix is of size \code{p} by \code{nlam}. The \code{j}-th column represents the estimate of coefficient corresponding to the \code{j}-th tuning parameter in \code{lambda}.}
 \item{\code{sig_obj_path}: }{Organic lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
 \item{\code{sig_naive}: }{Naive estimate of the error standard deviation based on the squared-lasso regression. A vector of length \code{nlam}.}
 \item{\code{sig_df}: }{Degree-of-freedom adjusted estimate of the error standard deviation, based on the squared-lasso regression. A vector of length \code{nlam}. }

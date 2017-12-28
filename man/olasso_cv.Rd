@@ -30,7 +30,7 @@ olasso_cv(x, y, lambda = NULL, intercept = TRUE, nlam = 100,
 A list object containing: \describe{
 \item{\code{n} and \code{p}: }{The dimension of the problem.}
 \item{\code{lambda}: }{The path of tuning parameter used.}
-\item{\code{beta}: }{Estimate of the regression coefficients, in the orignal scale, corresponding to the tuning parameter selected by cross-validation.}
+\item{\code{beta}: }{Estimate of the regression coefficients, in the original scale, corresponding to the tuning parameter selected by cross-validation.}
 \item{\code{a0}: }{Estimate of intercept}
 \item{\code{mat_mse}: }{The estimated prediction error on the test sets in cross-validation. A matrix of size \code{nlam} by \code{nfold}}
 \item{\code{cvm}: }{The averaged estimated prediction error on the test sets over K folds.}

@@ -14,7 +14,7 @@
 #' @return A list object containing: \describe{
 #' \item{\code{n} and \code{p}: }{The dimension of the problem.}
 #' \item{\code{lambda}: }{The path of tuning parameters used.}
-#' \item{\code{beta}: }{Matrix of estimates of the regression coefficients, in the orignal scale. The matrix is of size \code{p} by \code{nlam}. The \code{j}-th column represents the estimate of coefficient corresponding to the \code{j}-th tuning parameter in \code{lambda}.}
+#' \item{\code{beta}: }{Matrix of estimates of the regression coefficients, in the original scale. The matrix is of size \code{p} by \code{nlam}. The \code{j}-th column represents the estimate of coefficient corresponding to the \code{j}-th tuning parameter in \code{lambda}.}
 #' \item{\code{a0}: }{Estimate of intercept. A vector of length \code{nlam}.}
 #' \item{\code{sig_obj_path}: }{Natural lasso estimates of the error standard deviation. A vector of length \code{nlam}.}
 #' \item{\code{sig_naive_path}: }{Naive estimates of the error standard deviation based on lasso regression, i.e., \eqn{||y - X \hat{\beta}||_2 / \sqrt n}. A vector of length \code{nlam}.}
@@ -107,7 +107,7 @@ nlasso_path<- function(x, y, lambda = NULL,
 #' @return A list object containing: \describe{
 #' \item{\code{n} and \code{p}: }{The dimension of the problem.}
 #' \item{\code{lambda}: }{The path of tuning parameter used.}
-#' \item{\code{beta}: }{Estimate of the regression coefficients, in the orignal scale, corresponding to the tuning parameter selected by cross-validation.}
+#' \item{\code{beta}: }{Estimate of the regression coefficients, in the original scale, corresponding to the tuning parameter selected by cross-validation.}
 #' \item{\code{a0}: }{Estimate of intercept}
 #' \item{\code{mat_mse}: }{The estimated prediction error on the test sets in cross-validation. A matrix of size \code{nlam} by \code{nfold}}
 #' \item{\code{cvm}: }{The averaged estimated prediction error on the test sets over K folds.}
