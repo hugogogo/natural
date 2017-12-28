@@ -1,6 +1,6 @@
 #' Fit a linear model with organic lasso
 #'
-#' Calculate a solution path of the organic lasso estimate (of error standard deviation) with a list of tuning parameter values. In paticular, this function solves the squared-lasso problems and returns the objective function values as estimates of the error variance:
+#' Calculate a solution path of the organic lasso estimate (of error standard deviation) with a list of tuning parameter values. In particular, this function solves the squared-lasso problems and returns the objective function values as estimates of the error variance:
 #' \eqn{\tilde{\sigma}^2_{\lambda} = \min_{\beta} ||y - X \beta||_2^2 / n + 2 \lambda ||\beta||_1^2.}
 #'
 #' This package also includes the outputs of the naive and the degree-of-freedom adjusted estimates, in analogy to \code{\link{nlasso_path}}.

@@ -1,6 +1,6 @@
 #' Fit a linear model with natural lasso
 #'
-#' Calculate a solution path of the natural lasso estimate (of error standard deviation) with a list of tuning parameter values. In paticular, this function solves the lasso problems and returns the lasso objective function values as estimates of the error variance:
+#' Calculate a solution path of the natural lasso estimate (of error standard deviation) with a list of tuning parameter values. In particular, this function solves the lasso problems and returns the lasso objective function values as estimates of the error variance:
 #' \eqn{\hat{\sigma}^2_{\lambda} = \min_{\beta} ||y - X \beta||_2^2 / n + 2 \lambda ||\beta||_1.}
 #' The output also includes a path of naive estimates and a path of degree of freedom adjusted estimates of the error standard deviation.
 #'
