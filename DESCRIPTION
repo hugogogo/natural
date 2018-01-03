@@ -4,7 +4,7 @@ Title: Estimating the Error Variance in a High-Dimensional Linear Model
 Version: 0.9.0
 Authors@R: person("Guo", "Yu", email = "gy63@cornell.edu", role = c("aut", "cre"))
 Maintainer: Guo Yu <gy63@cornell.edu>
-Description: Error variance estimation in a high-dimensional linear model using natural lasso and organic lasso.
+Description: Implementation of the two error variance estimation methods in high-dimensional linear models of Yu, Bien (2017) <arXiv:1712.02412>.
 URL: https://arxiv.org/abs/1712.02412
 BugReports: https://github.com/hugogogo/natural/issues
 License: GPL-3
