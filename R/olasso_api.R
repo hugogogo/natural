@@ -266,24 +266,21 @@ olasso_cv <- function(x, y, lambda = NULL,
                       thresh = 1e-8){
   n <- nrow(x)
   p <- ncol(x)
-  # first standardize the design matrix to have column means zero
-  # and column sds 1
-  stan <- standardize(x)
-  x <- stan$x
-  col_mean <- stan$col_mean
-  col_sd <- stan$col_sd
-
-  y_mean <- mean(y)
-  if (intercept)
-    y <- y - y_mean
-
   if(!is.null(lambda)){
     # if lambda is given
     nlam <- length(lambda)
   }
   else{
+    # standardize the design matrix to have column means zero
+    # and column sds 1
+    stan <- standardize(x)
+    xx <- stan$x
+
+    if (intercept)
+      yy <- y - mean(y)
+
     # use the max lambda for SQRT-lasso
-    lam_max <- max(abs(crossprod(x, y))) / sqrt(n * sum(y^2))
+    lam_max <- max(abs(crossprod(xx, yy))) / sqrt(n * sum(yy^2))
     lambda <- lam_max * exp(seq(0, log(flmin), length = nlam))
   }
   if (is.null(foldid)){
