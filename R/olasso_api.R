@@ -45,8 +45,9 @@ olasso_path <- function(x, y, lambda = NULL,
   col_mean <- stan$col_mean
   col_sd <- stan$col_sd
 
+  y_mean <- mean(y)
   if (intercept)
-    y <- y - mean(y)
+    y <- y - y_mean
 
   if(!is.null(lambda)){
     # if lambda is given
@@ -103,7 +104,7 @@ olasso_path <- function(x, y, lambda = NULL,
   beta_est <- beta / col_sd
 
   if (intercept)
-    a0 <- mean(y) + as.numeric(crossprod(beta_est, col_mean))
+    a0 <- y_mean - as.numeric(crossprod(beta_est, col_mean))
   else
     a0 <- rep(0, p)
 
@@ -272,8 +273,9 @@ olasso_cv <- function(x, y, lambda = NULL,
   col_mean <- stan$col_mean
   col_sd <- stan$col_sd
 
+  y_mean <- mean(y)
   if (intercept)
-    y <- y - mean(y)
+    y <- y - y_mean
 
   if(!is.null(lambda)){
     # if lambda is given
