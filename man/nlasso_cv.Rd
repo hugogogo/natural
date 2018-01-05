@@ -5,7 +5,8 @@
 \title{Cross-validation for natural lasso}
 \usage{
 nlasso_cv(x, y, lambda = NULL, intercept = TRUE, nlam = 100,
-  flmin = 0.01, nfold = 5, foldid = NULL, thresh = 1e-08)
+  flmin = 0.01, nfold = 5, foldid = NULL, thresh = 1e-08,
+  glmnet_output = NULL)
 }
 \arguments{
 \item{x}{An \code{n} by \code{p} design matrix. Each row is an observation of \code{p} features.}
@@ -25,6 +26,8 @@ nlasso_cv(x, y, lambda = NULL, intercept = TRUE, nlam = 100,
 \item{foldid}{A vector of length \code{n} representing which fold each observation belongs to. Default to be \code{NULL}, and the program will generate its own randomly.}
 
 \item{thresh}{Threshold value for underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.}
+
+\item{glmnet_output}{Should the estimate be computed using a user-specified output from \code{cv.glmnet}. If not \code{NULL}, it should be the output from \code{cv.glmnet} call with \code{standardize = TRUE} and \code{keep = TRUE}, and then the arguments \code{lambda}, \code{intercept}, \code{nlam}, \code{flmin}, \code{nfold}, \code{foldid}, and \code{thresh}  will be ignored. Default to be \code{NULL}, in which case the function will call \code{cv.glmnet} internally.}
 }
 \value{
 A list object containing: \describe{
@@ -32,7 +35,7 @@ A list object containing: \describe{
 \item{\code{lambda}: }{The path of tuning parameter used.}
 \item{\code{beta}: }{Estimate of the regression coefficients, in the original scale, corresponding to the tuning parameter selected by cross-validation.}
 \item{\code{a0}: }{Estimate of intercept}
-\item{\code{mat_mse}: }{The estimated prediction error on the test sets in cross-validation. A matrix of size \code{nlam} by \code{nfold}}
+\item{\code{mat_mse}: }{The estimated prediction error on the test sets in cross-validation. A matrix of size \code{nlam} by \code{nfold}. If \code{glmnet_output} is not \code{NULL}, then \code{mat_mse} will be NULL.}
 \item{\code{cvm}: }{The averaged estimated prediction error on the test sets over K folds.}
 \item{\code{cvse}: }{The standard error of the estimated prediction error on the test sets over K folds.}
 \item{\code{ibest}: }{The index in \code{lambda} that attains the minimal mean cross-validated error.}

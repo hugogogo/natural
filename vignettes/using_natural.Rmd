@@ -63,6 +63,20 @@ plot(nl_cv)
 
 The return of `nlasso_cv` is a list of objects. See `?nlasso_cv` for more details. In particular, `sig_obj`, `sig_naive`, and `sig_df` are the cross-validated estimates. 
 
+### Computing natural lasso with `glmnet` output
+The function `nlasso_path` calls `glmnet` internally to solve lasso problems. In many use cases, one might have already called `glmnet` (and/or `cv.glmnet`) before calling `nlasso_path` and/or `nlasso_cv`. To avoid redundant computation, one can pass the output from `glmnet` into `nlasso_path` using the argument `glmnet_output`. By doing so, arguments like `lambda`, `nlam`, `flmin`, etc, will be ignored, and the function will compute estimates of $\sigma$ from `glmnet_output` directly. It is suggested that `glmnet_output` should be from `glmnet` call with argument `standardize = TRUE` (which is by default) to align with what `nlasso_path` is doing internally when `glmnet_output = NULL` (by default).
+```{r, fig.height = 5, fig.width = 5, fig.align='center'}
+library(glmnet)
+g_o <- glmnet(x = sim$x, y = sim$y[, 1], lambda = nl$lambda)
+nl2 <- nlasso_path(x = sim$x, y = sim$y[, 1], glmnet_output = g_o)
+```
+
+Similarly, one can pass the output from `cv.glmnet` into `nlasso_cv` with argument `glmnet_output`. 
+```{r, fig.height = 5, fig.width = 5, fig.align='center'}
+g_o_cv <- cv.glmnet(x = sim$x, y = sim$y[, 1], lambda = nl_cv$lambda, foldid = nl_cv$foldid, keep = TRUE)
+nl_cv2 <- nlasso_cv(x = sim$x, y = sim$y[, 1], glmnet_output = g_o_cv)
+```
+
 ## Estimating $\sigma$ with organic lasso
 Organic lasso is a companion method to the natural lasso. The main novelty is that the choice of tuning parameter is *pivotal*, in that it does not depend on any unknown parameter. The organic lasso estimate of the error variance is defined as
 $$

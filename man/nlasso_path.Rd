@@ -5,7 +5,7 @@
 \title{Fit a linear model with natural lasso}
 \usage{
 nlasso_path(x, y, lambda = NULL, nlam = 100, flmin = 0.01,
-  thresh = 1e-08, intercept = TRUE)
+  thresh = 1e-08, intercept = TRUE, glmnet_output = NULL)
 }
 \arguments{
 \item{x}{An \code{n} by \code{p} design matrix. Each row is an observation of \code{p} features.}
@@ -21,6 +21,8 @@ nlasso_path(x, y, lambda = NULL, nlam = 100, flmin = 0.01,
 \item{thresh}{Threshold value for the underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.}
 
 \item{intercept}{Indicator of whether intercept should be fitted. Default to be \code{TRUE}.}
+
+\item{glmnet_output}{Should the estimate be computed using a user-specified output from \code{glmnet}. If not \code{NULL}, it should be the output from \code{glmnet} call with \code{standardize = TRUE}, and then the arguments \code{lambda}, \code{nlam}, \code{flmin}, \code{thresh}, and \code{intercept} will be ignored. Default to be \code{NULL}, in which case the function will call \code{glmnet} internally.}
 }
 \value{
 A list object containing: \describe{
