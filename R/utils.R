@@ -6,9 +6,7 @@ standardize <- function(x, center = TRUE){
   n <- nrow(x)
   x <- scale(x, center = center, scale = TRUE)
   col_mean <- attr(x, which = "scaled:center")
-  col_sd <- attr(x, which = "scaled:scale") * sqrt((n - 1) / n)
-  # column sd is defined as divided by n (instead of n - 1)
-  x <- x * sqrt(n / (n - 1))
+  col_sd <- attr(x, which = "scaled:scale")
   return(list(x = x, col_mean = col_mean, col_sd = col_sd))
 }
 
@@ -42,8 +40,8 @@ make_sparse_model <- function(n, p, alpha, rho, snr, nsim) {
   Sigma <- matrix(rho, nrow = p, ncol = p)
   diag(Sigma) <- 1
   x <- matrix(stats::rnorm(n * p), nrow = n, ncol = p) %*% chol(Sigma)
-  # standardize x so that it has colmeans 0 and ||x_j||^2 = n
-  x <- scale(x, center = TRUE, scale = TRUE) / sqrt(n - 1) * sqrt(n)
+  # standardize x so that it has colmeans 0 and ||x_j||^2 = n - 1
+  x <- scale(x, center = TRUE, scale = TRUE)
   # number of nonzeros
   nnz <- ceiling(n^alpha)
   # random indices of nonzero elements in beta
