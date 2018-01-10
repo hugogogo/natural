@@ -82,10 +82,10 @@ nlasso_path<- function(x, y, lambda = NULL,
     df[df >= n] <- n - 1
   }
   else{
-    # first check if the glmnet call is with standardize = FALSE
-    if (!is.null(glmnet_output$call$standardize) && (glmnet_output$call$standardize == FALSE)){
-      warning("glmnet is called with standardize = FALSE. For natural estimate of error variance, it is suggested that glmnet is called with standardize = TRUE.")
-    }
+    # # first check if the glmnet call is with standardize = FALSE
+    # if (!is.null(glmnet_output$call$standardize) && (glmnet_output$call$standardize == FALSE)){
+    #   warning("glmnet is called with standardize = FALSE. For natural estimate of error variance, it is suggested that glmnet is called with standardize = TRUE.")
+    # }
 
     # here x is not standardized
     a0 <- glmnet_output$a0
@@ -238,7 +238,7 @@ nlasso_cv <- function(x, y, lambda = NULL,
     ibest <- which.min(cvm)
     foldid <- glmnet_output$foldid
     if (is.null(foldid)){
-      warning("cv.glmnet output has no foldid output. To have fold information in the output, rerun cv.glmnet with keep = TRUE and pass the output into nlasso_cv, or simply run nlasso_cv with glmnet_out = NULL.")
+      #warning("cv.glmnet output has no foldid output. To have fold information in the output, rerun cv.glmnet with keep = TRUE and pass the output into nlasso_cv, or simply run nlasso_cv with glmnet_out = NULL.")
       nfold <- NULL
     }
     else{
