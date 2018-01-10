@@ -73,7 +73,7 @@ nl2 <- nlasso_path(x = sim$x, y = sim$y[, 1], glmnet_output = g_o)
 
 Similarly, one can pass the output from `cv.glmnet` into `nlasso_cv` with argument `glmnet_output`. 
 ```{r, fig.height = 5, fig.width = 5, fig.align='center'}
-g_o_cv <- cv.glmnet(x = sim$x, y = sim$y[, 1], lambda = nl_cv$lambda, foldid = nl_cv$foldid, keep = TRUE)
+g_o_cv <- cv.glmnet(x = sim$x, y = sim$y[, 1])
 nl_cv2 <- nlasso_cv(x = sim$x, y = sim$y[, 1], glmnet_output = g_o_cv)
 ```
 
