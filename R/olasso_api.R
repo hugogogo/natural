@@ -232,7 +232,7 @@ olasso <- function(x, y, intercept = TRUE, thresh = 1e-8){
 #' @param intercept Indicator of whether intercept should be fitted. Default to be \code{TRUE}.
 #' @param nlam The number of \code{lambda} values. Default value is \code{100}.
 #' @param flmin The ratio of the smallest and the largest values in \code{lambda}. The largest value in \code{lambda} is usually the smallest value for which all coefficients are set to zero. Default to be \code{1e-2}.
-#' @param nfold Number of folds in cross-validaton. Default value is 5. If each fold gets too view observation, a warning is thrown and the minimal \code{nfold = 3} is used.
+#' @param nfold Number of folds in cross-validation. Default value is 5. If each fold gets too view observation, a warning is thrown and the minimal \code{nfold = 3} is used.
 #' @param foldid A vector of length \code{n} representing which fold each observation belongs to. Default to be \code{NULL}, and the program will generate its own randomly.
 #' @param thresh Threshold value for underlying optimization algorithm to claim convergence. Default to be \code{1e-8}.
 #' @return A list object containing: \describe{
