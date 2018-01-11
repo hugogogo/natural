@@ -21,7 +21,7 @@ nlasso_cv(x, y, lambda = NULL, intercept = TRUE, nlam = 100,
 
 \item{flmin}{The ratio of the smallest and the largest values in \code{lambda}. The largest value in \code{lambda} is usually the smallest value for which all coefficients are set to zero. Default to be \code{1e-2}.}
 
-\item{nfold}{Number of folds in cross-validaton. Default value is 5. If each fold gets too view observation, a warning is thrown and the minimal \code{nfold = 3} is used.}
+\item{nfold}{Number of folds in cross-validation. Default value is 5. If each fold gets too view observation, a warning is thrown and the minimal \code{nfold = 3} is used.}
 
 \item{foldid}{A vector of length \code{n} representing which fold each observation belongs to. Default to be \code{NULL}, and the program will generate its own randomly.}
 
