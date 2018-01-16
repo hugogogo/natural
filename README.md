@@ -8,7 +8,7 @@ The details of the method can be found in
 ```R
 install.packages("natural")
 ```
-A vignette(https://cran.r-project.org/web/packages/natural/vignettes/using_natural.html) contains examples of how to use the package.
+A [vignette](https://cran.r-project.org/web/packages/natural/vignettes/using_natural.html) contains examples of how to use the package.
 
 To install `natural` from [github](http://github.com), type in R console
 ```R
