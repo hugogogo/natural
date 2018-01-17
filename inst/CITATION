@@ -1,5 +1,5 @@
 bibentry(bibtype = "article",
-title = "Estimating the error variance in a high-dimensional linear model",
+title = "Estimating the error variance in a high-dimensional linear model with {natural}",
 author = c(person("Guo", "Yu"), person("Jacob", "Bien")),
 year = {2017},
 journal = "Submitted",
